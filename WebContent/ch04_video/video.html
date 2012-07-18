@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+</head>
+<body>
+	<h1>Video 예제</h1>
+	<div>
+		<video controls width="640" height="360">
+			<source src="../media/chrome.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+			<source src="../media/chrome.webm" type='video/webm; codecs="vp8, vorbis"'></source>
+			<source src="../media/chrome.ogv" type='video/ogg; codecs="theora, vorbis"'></source>
+			
+			<object width="640" height="360" type="application/x-shockwave-flash" data="../media/chrome.swf">
+				<param name="movie" value="../media/chrome.swf">
+				<param name="wmode" value="window">
+				<p><img src="../img/chrome.jpg" alt="크롬 소개 동영상"></p>
+				<p>
+					비디오 재생을 지원하지 않는 브라우저 입니다. 아래의 링크를 클릭하여 다운로드 받으세요.<br>
+					<a href="../media/chrome.mp4">MP4</a>
+					<a href="../media/chrome.webm">WebM</a>
+					<a href="../media/chrome.ogv">Ogg</a>
+				</p>
+			</object>
+		</video>
+					
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

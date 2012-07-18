@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script>
+	window.onload = function(){
+		// 폼의 submit 이벤트를 등록한다.
+		document.myForm.onsubmit = customValidate;
+	};
+	
+	function customValidate(){
+		var form = document.myForm;
+		var email = form.email;
+		
+		//초기화
+		email.setCustomValidity("");
+		
+		
+		// 브라우저의 기본 검증작업을 호출한다.
+		if(form.checkValidity()) {
+			// 입력한 이메일이 multicampus.com으로 끝나지 않을 경우
+			// 검증 실패 메세지를 세팅한다.
+			var pattern = /@multicampus.com$/;
+			if(pattern.test(email.value)) {
+				//검증 성공
+				return true;
+			} else {
+				//검증 실패
+				email.setCustomValidity("multicampus.com 만 등록 가능 합니다.")
+				form.checkValidity();
+				
+				return false;
+			}
+			
+		} else {
+			return false;
+		};
+		
+	}
+</script>
+</head>
+<body>
+	<h1>Form Validation 예제</h1>
+	<form name="myForm" novalidate><!-- novalidate 브라우저가 벨리데이트를 체크 하지 않는다. -->
+		아이디(필수입력): <input type="text" name="id" required><br>
+		전화번호(^\d{2,3}-\d{3,4}-\d{4}$)(입력예: 02-111-2222): 
+		<input type="tel" name="phone" pattern="^\d{2,3}-\d{3,4}-\d{4}$" placeholder="(입력예: 02-111-2222)"><br>
+		나이(14~30 까지 짝수): 
+		<input type="number" name="age" min="14" max="30" step="2"><br>
+		홈페이지: <input type="url" name="homepage"><br>
+		이메일(필수입력, multicampus.co.kr 만 등록 가능): <input type="email" name="email" required><br>
+		<button type="submit" formmethod="post" formaction="regist.jsp">등록	</button>
+		<button type="submit" formmethod="get" formaction="../index.html" onclick="myForm.setAttribute('novalidate');">취소(메인페이지로)</button>
+	</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+/* 
+
+Hardboiled CSS3 Media Queries by Andy Clarke:
+http://stuffandnonsense.co.uk/blog/about/hardboiled_css3_media_queries/
+
+Author: Andy Clarke
+Web site: http://stuffandnonsense.co.uk
+Twitter: http://twitter.com/malarkey
+
+Hardboiled Web Design
+Web site: http://hardboiledwebdesign.com
+Twitter: http://twitter.com/itshardboiled
+
+Version date : 30th September 2010
+Version: 0.9
+
+License: Creative Commons CC Zero Declaration. No Rights Reserved.
+
+*/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+	
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+	#map{
+		width: 500px;
+		height: 300px;
+	}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+	#map{
+		width: 300px;
+		height: 400px;
+	}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width: 1024px) {
+	
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width: 1024px) and (orientation : landscape) {
+	#map{
+		width: 1010px;
+		height: 580px;
+	}
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width: 1024px) and (orientation : portrait) {
+	#map{
+		width: 754px;
+		height: 836px;
+	}
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+	#map{
+		width: 1024px;
+		height: 600px;
+	}
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+	
+}
+
+/* iPhone 4 and high pixel ratio devices ----------- */
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5) , only screen and (min-device-pixel-ratio : 1.5) {
+	
+}

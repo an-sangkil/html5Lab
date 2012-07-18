@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML5</title>
+<link rel="stylesheet" href="../css/map.css">
+<!-- <style> -->
+<!-- 	#map{ -->
+<!-- 		width: 1024px; -->
+<!-- 		height: 600px; -->
+<!-- 	} -->
+<!-- </style> -->
+<script src="../js/common.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+	window.onload = function(){
+		
+		document.getElementById("start").onclick = function(){
+			// TODO 위치를 추적한다.
+			
+			console.log("pusg button!!");
+			try{
+				console.log("navigator log befor Method");
+				watchId = navigator.geolocation.watchPosition(success, error , {
+					maximumAge: 60000,
+					timeout: 100, 
+					enableHighAccuracy: document.getElementById("useGps").checked
+				});
+			} catch ( e ) {
+				console.log("navigator log:" + e.message);
+			}
+			
+		};
+		
+		document.getElementById("stop").onclick = function(){
+			navigator.geolocation.clearWatch(watchId);
+		
+		};
+		
+		var myLatlng = new google.maps.LatLng( 38.972522,-94.673653 );
+		// TODO 구글맵을 불러온다.(구글맵 open api -> http://code.google.com/apis/maps)
+		map = new google.maps.Map(document.getElementById("map"),{
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			zoom : 16 ,
+		    center: myLatlng,
+		});
+		
+		//마커표시
+		new google.maps.Marker({
+			position: myLatlng,
+			map: map,
+			title: "초기위치"
+		});
+	}
+	
+	// 위치 확인 성공 시
+	function success(position){
+		// TODO 지도의 중앙을 현재 위치로 세팅한다.
+		console.log(dateToString()+"갱신되었습니다.");
+		//console.log(position.coords.latitude + "," + position.coords.longitude );
+		var myLatlng = new google.maps.LatLng( position.coords.latitude , position.coords.longitude );
+		// TODO 구글맵을 불러온다.(구글맵 open api -> http://code.google.com/apis/maps)
+		map.setCenter(myLatlng);
+		
+		// TODO 마커 표시
+		new google.maps.Marker({
+			position: myLatlng,
+			map: map,
+			title: dateToString()+ "위치"
+		});
+	}
+	
+	// 위치 확인 실패 시
+	function error(error){
+		log("조회 실패: " + error.code);
+	}
+</script>
+</head>
+<body>
+	<h1>현재 위치 추적</h1>
+	<button id="start">시작</button>
+	<button id="stop">중지</button>
+	<input type="checkbox" id="useGps">GPS 사용
+	<div id="map">
+		지도를 로딩 중입니다...
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

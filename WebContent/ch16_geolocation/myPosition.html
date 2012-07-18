@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+<title>HTML5</title>
+<script src="../js/common.js"></script>
+<script>
+	window.onload = function(){
+		document.querySelector("button").onclick = function(){
+			// TODO 현재 위치를 조회한다.
+			navigator.geolocation.getCurrentPosition(success, error);
+		};
+	}
+	
+	// 위치 조회 성공 시
+	function success(position){
+		// TODO 현재 위치를 출력한다.
+		console.log("success");
+		log("위경도: " + position.coords.latitude + "," + position.coords.longitude + "(오차:" + position.coords.accuracy + "m"  )	
+	}
+	
+	// 위치 조회 실패 시
+	function error(error){
+		log("조회 실패: " + error.code);
+		log("에러 메세지: " + error.message);
+	}
+</script>
+</head>
+<body>
+	<h1>현재 위치 조회</h1>
+	<button>조회</button>
+	<div id="log"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

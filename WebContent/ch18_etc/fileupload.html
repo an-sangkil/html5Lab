@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5 실습 예제</title>
+<style>
+	progress{
+		display: none;
+	}
+</style>
+<script>
+	window.onload = function(){
+		progress = document.querySelector("progress");
+		// upload 버튼을 클릭하면 파일을 업로드 한다.
+		document.querySelector("button").onclick = function(){
+			fileUpload();
+		};		
+	};
+	
+	// 파일을 업로드 한다.
+	function fileUpload(){
+		var uploadFile = document.querySelector("input");
+		
+		var xhr = new XMLHttpRequest();
+		
+		// 업로드 시작
+		xhr.upload.onloadstart = function(e){
+			progress.style.display = "inline";
+		};
+		
+		// 업로드 도중에 계속 발생
+		xhr.upload.onprogress= function(e){
+			var percent = e.loaded/e.total;
+			progress.value = percent; 
+			
+		};
+		
+		// 업로드 종료 시 발생
+		xhr.upload.onload = function(e){
+			progress.style.display = "none";
+		};
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				document.querySelector("div").innerHTML += xhr.responseText + "<br>"; 	
+			}
+		};
+		xhr.open("POST", "http://70.12.115.50:8080/Html5Lab/ch18_etc/fileupload.jsp", true);//fileupload.jsp
+		xhr.setRequestHeader("X-File-Name", encodeURIComponent(uploadFile.files[0].name));
+		xhr.send(uploadFile.files[0]);
+	}
+</script>
+</head>
+<body>
+	<h1>XMLHttpRequest Level2를 이용한 파일 업로드</h1>
+	<input type="file">
+	<button>upload</button>
+	<progress>0%</progress><br>
+	<div></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

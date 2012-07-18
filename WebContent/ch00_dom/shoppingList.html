@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script>
+	window.onload = function () {
+		
+		var ulNode = document.querySelector("ul");
+		var btn = document.querySelector("input[type=button]");
+		
+		btn.onclick = function () {
+			var itemText = document.querySelector("input").value;
+			
+			var liNode = document.createElement("li");
+			var itemNode = document.createTextNode(itemText);
+			
+			ulNode.innerHTML += "<li>"+itemText+"</li>";
+			
+			/*
+			liNode.appendChild(itemNode);
+			ulNode.appendChild(liNode);
+			*/
+		};
+	}
+</script>
+</head>
+<body>
+	<h1>쇼핑 목록</h1>
+	<p>마트에서 사야할 목록</p>
+	<p>
+		<input type="text" value="메롱">
+		<input type="button" value="추가">
+	</p>
+	<ul>
+		<li>두부</li>
+		<li>계란</li>
+		<li>라면</li>
+	</ul>
+</body>
+</html>

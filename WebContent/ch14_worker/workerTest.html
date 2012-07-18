@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>HTML5</title>
+<link href="../../css/common.css">
+<script src="../js/common.js"></script>
+<script>
+	window.onload = function(){
+		var send = document.getElementById("send");
+		var calc = document.getElementById("calc");
+		var stop = document.getElementById("stop");
+		var workerImg = document.getElementById("workerImg");
+		
+		// TODO 워커 생성
+		worker = new Worker("worker.js");
+		worker.onmessage = function (me){
+			
+			log("return:" + me.data);
+			
+			calc.removeAttribute("disabled");
+			workerImg.innerHTML = ""
+		}
+		
+		// TODO 워커로부터 보내온 메세지 처리(message 이벤트 처리)		
+		
+		
+		send.onclick = function(){
+			var msg = document.getElementById("msg").value;
+			// TODO 워커에 메세지 전송
+			
+			worker.postMessage(msg);
+			
+		};
+		
+		calc.onclick = function(){
+			calc.setAttribute("disabled", "disabled");
+			workerImg.innerHTML = "<img src='../img/worker.gif'>";
+			
+			// 워커를 사용하지 않을 경우
+					
+			
+			// TODO 워커에 메세지 전송("calc");
+			worker.postMessage("calc");
+			
+		};
+		
+		
+		stop.onclick = function(){
+			// TODO 워커 종료
+			worker.terminate();
+			
+			calc.removeAttribute("disabled");
+			workerImg.innerHTML = "";
+		};
+	};
+</script>
+</head>
+<body>
+	<h1>워커 실행</h1>
+	<div>
+		<input type="text" id="msg">
+		<input type="button" id="send" value="메세지 전송">
+		<input type="button" id="calc" value="계산">
+		<input type="button" id="stop" value="워커 종료"><br>
+		<div id="workerImg"></div>
+	</div>
+	
+	<div class="log"><p>로그</p></div>	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

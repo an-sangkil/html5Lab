@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+body{
+  font-family: Verdana,sans-serif;
+  font-size: 9pt;
+}
+h1 {
+  font-size: 1.6em;
+}
+h2 {
+  font-size: 1.4em;
+}
+.log{
+	width: 200px;
+	border: 1px dotted #999999;
+	background-color: #DDDDDD;
+	margin: 5px;
+}

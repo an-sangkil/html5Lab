@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script>
+	window.onload = function() {
+		document.getElementById("title").innerHTML = "띠용 Domain: " + document.location.host;
+		window.document.onmousemove = function(e) {
+			if(!e) e = window.event;
+			// 문자로 만들기
+			var position = "x: " + e.clientX + ", y: " + e.clientY;
+			
+			var targetWindow = window.parent.frames[0];
+			// TODO 마우스의 좌표(문자)를 상대 문서에 전송한다.
+			
+			targetWindow.postMessage(position , "http://127.0.0.1:8080");
+			
+		};
+		
+		window.onmessage = function(me){
+			if(!me) me = window.event;
+			// TODO display에 전송받은 마우스 좌표(객체)를 출력한다.
+			
+			var megObj = JSON.parse(me.data);
+			
+			document.querySelector('#display').innerHTML = megObj.x + ", " + megObj.y;
+			
+		};
+	};
+</script>
+<body>
+	<div id="title"></div>
+	<br>
+	<div id="display"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

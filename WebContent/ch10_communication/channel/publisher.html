@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script src="../../js/common.js"></script>
+<script>
+	// 메세지 구독자 명단
+	var ports = [];	
+	// 메세지 구독자 등록
+	window.onmessage = function(me){
+		// TODO 포트를 구독자 명단에 추가한다.
+		ports.push(me.ports[0]);
+		
+	}
+	
+	window.onload = function(){
+		document.querySelector("button").onclick = function(){
+			// TODO 메세지 전송
+			var msg = document.querySelector("input").value;
+			console.log("msg :: " + msg );
+			for (var i = 0 ; i < ports.length ; i++ ) {
+				ports[i].postMessage(msg); 
+				console.log("test :: "+i);
+			}
+			
+		};
+		
+		for(var i=0; i<3; i++){
+			window.open("subscriber.html", "subscribe" + i, "top="+(150*(i+1))+", left="+(600+50*(i+1))+", width=300, height=200, toolbar=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0");
+		}
+	};
+	
+</script>
+</head>
+<body>
+	<h1>메세지 발행자</h1>
+	<div>
+		<input type="text">
+		<button>메세지 전송</button>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

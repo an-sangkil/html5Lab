@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+<title>HTML5</title>
+
+<script type="text/javascript">
+//페이지가 로딩된 후 실행될 함수.
+	window.onload = function () {
+		var mycanvas = document.getElementById("mycanvas");
+		
+		var context = mycanvas.getContext("2d");
+		
+		//1.패스그리기 시작한다.
+		
+		context.beginPath();
+		
+		//2.서브패스 그리기
+		
+		var x = 60;
+		var y = 60;
+		
+		context.moveTo(x , y);
+		context.lineTo(x+50, y);
+		context.lineTo(x+50, y+50);
+		context.lineTo(x+100, y+50);
+		context.lineTo(x+100, y+100);
+		context.lineTo(x-50, y+100);
+		context.lineTo(x-50, y+50);
+		context.lineTo(x, y+50);
+		//context.lineTo(x, y);
+		
+		
+		//3.패스 닫기
+		context.closePath();
+		
+		
+		//4. 그리기 또는 채우기.
+		//context.stroke();
+		
+		//context.fillStyle	= "#0000FF";
+		context.fill();
+		
+		
+		
+		//1.패스그리기 시작한다.
+		context.beginPath();
+		
+		//2.서브패스 그리기
+			//2.1기본 false 시계방향, true 반시계 방향
+		context.arc(250, 110, 50, 0 , 360*Math.PI/180 , true); 
+		
+		context.arc(400, 110, 50, 0 , 270*Math.PI/180 , false);
+		context.lineTo(400,110);
+		
+		context.moveTo(420, 90);
+		context.arc(420, 90, 50, 0 , 270*Math.PI/180 , true);
+		context.lineTo(420, 90);
+		context.lineTo(470, 90);
+		
+		//3.패스 닫기
+		context.closePath();
+		
+		
+		//4. 그리기 또는 채우기.
+		//context.stroke();
+		
+		//context.fillStyle	= "#0000FF";
+		context.fill();
+		
+		
+		
+		
+		
+	}
+</script>
+</head>
+<body>
+	<h1>캔버스 테스트 - 도형 그리기</h1>
+	<canvas id="mycanvas" width="800px" height="300px">
+		<p>Canvas 를 지원하지 않는 브라우져입니다.<br>
+		최신버젼으로 업그래이드 하세요.
+		</p>
+	</canvas>
+	
+</body>
+</html>
+
+
+
+
+
+

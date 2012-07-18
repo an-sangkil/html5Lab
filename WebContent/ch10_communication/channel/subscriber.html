@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script src="../../js/common.js"></script>
+<script>
+	window.onload = function(){
+		
+		// MessageChannel을 생성하여 포트를 전달한다.
+		var channel = new MessageChannel();
+		window.opener.postMessage("포트공개", [channel.port2], "*");
+		
+		
+		// TODO 메세지를 받으면 출력한다.
+		channel.port1.onmessage =  function(me) {
+			log(me.data);
+		} 
+		
+		log("수신 준비 완료..");
+	};
+</script>
+</head>
+<body>
+	<p>메세지 수신자</p>
+	<div id="log"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

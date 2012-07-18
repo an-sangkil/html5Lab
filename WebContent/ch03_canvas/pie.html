@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script src="../js/rgraph2/RGraph.common.core.js"></script>
+<script src="../js/rgraph2/RGraph.pie.js"></script>
+<script>
+window.onload = function ()
+{
+    // The data to be shown on the Pie chart
+    var data = [564,155,499,611,322];
+
+    // Create the Pie chart. The arguments are the canvas ID and the data to be shown.
+    var pie = new RGraph.Pie('mycanvas', data);
+
+    // Configure the chart to look as you want.
+    pie.Set('chart.labels', ['Abc', 'Def', 'Ghi', 'Jkl', 'Mno']);
+    pie.Set('chart.linewidth', 5);
+    pie.Set('chart.stroke', 'white');
+    
+    // Call the .Draw() chart to draw the Pie chart.
+    pie.Draw();
+}
+
+</script>
+
+</head>
+<body>
+	<h1>PIE 그래프</h1>
+	
+	<canvas id="mycanvas" width="200" height="200">
+		켄버스가 지원되지 않음.
+	</canvas>
+</body>
+</html>

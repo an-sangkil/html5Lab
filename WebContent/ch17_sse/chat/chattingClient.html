@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>HTML5</title>
+<meta charset="UTF-8" />
+<style>
+	#logout,#inputMsg {
+		display: none;
+	}
+</style>
+<script src="../../js/common.js"></script>
+<script>
+	
+	// 로그인 요청
+	function login(){
+		// 대화명 체크
+		if(nicknameE.value.length < 2){
+			alert("대화명을 2글자 이상 입력하세요.");
+			nicknameE.focus();
+			return;
+		}
+		
+		// 서버 접속
+		connectServer();		
+		// 로그인 메세지 전송
+		sendMsg(nicknameE.value + "님이 입장했습니다.");
+		
+		// 로그인 버튼을 숨긴다.
+		loginE.style.display = "none";
+		// 로그아웃 버튼을 나타낸다.
+		logoutE.style.display = "inline";
+		// 메세지 입력창을 나타낸다.
+		inputMsgE.style.display = "inline";
+		// 메세지 입력창에 포커스를 지정한다.
+		msgE.focus();
+		// 대화명을 비활성화 시킨다.
+		nicknameE.setAttribute("disabled", "disabled")		
+	}
+	
+	// 서버 접속
+	function connectServer(){
+		// TODO 1. Server 접속
+		es = new EventSource("SseServer.jsp");
+
+		// TODO 2. message 이벤트 처리(서버에서 메세지를 받을 경우 메세지를 출력한다)
+		es.onmessage = function (me){
+			
+			console.log("me.data:" + me.data );
+			
+			panelE.value += me.data +"\n";	
+		}
+	}
+	
+	// 지정한 메세지를 텍스트박스에 출력한다.
+	function showMsg(msg){
+		panelE.value += msg + "\n";
+		// 텍스트박스의 스크롤을 밑으로 이동한다.
+		panelE.scrollTop = panelE.scrollHeight;
+	}
+	
+	// 로그아웃
+	function logout(){
+		// 로그아웃 메세지 전송
+		sendMsg(nicknameE.value + "님이 퇴장했습니다.");
+		
+		// 서버 접속을 종료한다.
+		closeServer();
+		
+		loginE.style.display = "inline";
+		logoutE.style.display = "none";		
+		inputMsgE.style.display = "none";
+		nicknameE.value = "";
+		nicknameE.removeAttribute("disabled");
+	}
+	
+	// 서버 접속 종료
+	function closeServer(){
+		// TODO 3. 서버 접속 종료
+		es.close();
+		
+		// 대화내용 저장 여부를 물어보고 대화내용을 localStorage에 저장한다.
+		showMsg("대화가 종료 되었습니다.");
+		if(confirm("대화를 저장하시겠습니까?")){
+			storeHistory();
+		}
+	}
+	
+	// 서버에 지정한 메세지를 전송한다.
+	function sendMsg(msg){
+		// TODO 4. Ajax 요청으로 서버(messageServer.jsp?msg=xxx)에 메세지 전송
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function (res) {
+		
+		}
+		console.log("msgE:" + msgE.value);
+		var url = "messageServer.jsp?msg="+msgE.value;
+		xhr.open("get", url, true);
+		xhr.send();
+		
+		msgE.value = "";
+		msgE.focus();
+	}	
+
+
+	// 대화를 저장한다.
+	function storeHistory(){
+		// TODO 5. 대화를 storage에 저장한다.(key: 현재시간, value: 대화내용)
+		
+		var todate = new Date();
+		localStorage.setItem(todate.getTime(), panelE.value) ;
+			
+		// 지난 대화 목록을 갱신한다.
+		loadHistoryList();
+	}
+	
+	// 지난 대화 목록을 불러온다.
+	function loadHistoryList(){
+		// TODO 6. storage에 저장된 대화 목록을 불러온다.
+		for (var i = 0 ; i < localStorage.length; i ++){
+			var key   = localStorage.key(i);
+			var value = localStorage[key];
+			
+			historyE.innerHTML += "<option id=" + key + ">" + key +"</option>"
+		}
+		
+	}
+	
+	// 지정한 대화 내용을 불러온다.
+	function loadHistory(key){
+		// TODO 7. 지정한 대화 내용을 localStorage에서 불러와서 메세지 출력 창에 보여준다.
+		console.log("key:" + key);
+		var value = localStorage[key];
+		
+		panelE.value = value;
+				
+	}
+	
+	// 페이지 로딩 후 처리할 작업
+	window.onload = function(){
+		nicknameE = document.getElementById("nickname");
+		loginE = document.getElementById("login");
+		logoutE = document.getElementById("logout");
+		historyE = document.getElementById("history");
+		panelE = document.getElementById("panel");
+		inputMsgE = document.getElementById("inputMsg");
+		msgE = document.getElementById("msg");
+		sendE = document.getElementById("send");
+		
+		// 로그인 버튼 클릭
+		loginE.onclick = login;
+		
+		// 로그아웃 버튼 클릭
+		logoutE.onclick = logout;
+		
+		// 메세지 전송 버튼 클릭
+		sendE.onclick = function(){
+			if(msgE.value != ""){
+				sendMsg(nicknameE.value + ": " + msgE.value);
+			}
+		};
+		
+		// 메세지 입력후 엔터 누름
+		msgE.onkeydown = function(e){
+			if(!e) e = window.event;
+			if(e.keyCode == 13){
+				if(msgE.value != ""){
+					sendMsg(nicknameE.value + ": " + msgE.value);
+				}
+			}
+		};
+		
+		// 지난 대화 보기 선택 시
+		historyE.onchange = function(){
+			loadHistory(historyE.value);
+		};
+		
+		loadHistoryList();
+	};
+	
+	
+
+</script>
+</head>
+<body>
+	<h1>Server-Sent Events 채팅</h1>
+	<div>
+		<input type="text" id="nickname" maxLength="12" placeholder="대화명">
+		<button type="button" id="login">로그인</button>
+		<button type="button" id="logout">로그아웃</button>
+		지난 대화 보기
+		<select id="history"></select>
+		<br>
+		<textarea id="panel" rows="20" cols="60" disabled></textarea>
+		<br>
+		<div id="inputMsg">
+			<input type="text" id="msg" size="50">
+			<button type="button" id="send">메세지 전송</button>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

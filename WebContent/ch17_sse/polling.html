@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>HTML5</title>
+<link rel="stylesheet" href="../css/common.css">
+<script src="../js/common.js"></script>
+<script>
+	window.onload = function(){
+		document.getElementById("ajax").onclick = function(){
+			setInterval("requestAjax()", 3000);
+						
+		};
+		document.getElementById("sse").onclick = function(){
+			requestSse();
+		};
+	};
+	
+	function requestAjax(){
+		// 1. XMLHttpRequest 객체 생성
+		var xhr = new XMLHttpRequest();
+		
+		// 2. 서버의 응답을 처리(서버에서 받음 메세지를 출력)하는 이벤트 핸들러 등록
+		xhr.onreadystatechange = function () {
+			
+			if(xhr.readyState == 4  && xhr.status == 200){
+				log(xhr.responseText);	
+			}
+		};
+		// 3. 서버에 전송 준비
+		xhr.open("get", "timeServerForAjax.jsp", true);		
+		
+		// 4. 서버에 전송
+		xhr.send();
+		
+	}
+	
+	function requestSse(){
+		// Server-Sent Event를 이용해 서버에 요청을 보낸다.
+		var es = new EventSource("timeServerForSse.jsp");
+		// 서버에서 받은 메세지를 출력한다.
+		es.onmessage = function (me){
+			log(me.data);
+		}
+		es.addEventListener("message", function (me){
+			log("aaa:"+ me.data);
+		});
+		
+	}
+</script>
+</head>
+<body>
+	<h1>Server Sent Events</h1>
+	<button id="ajax">Ajax 요청</button>
+	<button id="sse">SSE 요청</button>
+	<div class="log"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

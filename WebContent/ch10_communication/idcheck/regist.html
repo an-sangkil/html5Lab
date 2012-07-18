@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script>
+	window.onload = function(){
+		document.querySelector("button").onclick = checkId;
+		document.myForm.userId.onclick = checkId;
+		
+		// TODO 아이디 중복 체크 창에서 보낸 메세지를 수신하여 아이디 항목을 채운다.
+		
+		window.onmessage = function (message) {
+			document.querySelector('#userId').value = message.data	
+		}
+	};
+	
+	function checkId(){
+		window.open("idCheckPop.html", "idcheck", "top=150, left=150, width=400, height=200, toolbar=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0");
+	}
+</script>
+</head>
+<body>
+	<h1>회원가입</h1>
+	<form name="myForm" method="get" action="result.jsp">
+		아이디: <input type="text" id="userId" name="userId" required readonly><button>중복확인</button><br>
+		비밀번호: <input type="password" name="pwd" required><br>
+		대화명: <input type="text" name="nickname"><br>
+		<button type="submit">등록</button>
+	</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

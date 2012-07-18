@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script>
+	window.onload = function() {
+		document.getElementById("title").innerHTML = "안상길 Domain: " + document.location.host;
+		window.document.onmousemove = function(e) {
+			//IE에서의 이벤트 처리 방식
+			if(!e) e = window.event;
+			// 객체로 만들기
+			var position = {x: e.clientX, y: e.clientY};
+			
+			var targetWindow = window.parent.frames[1];
+			
+			// TODO 마우스의 좌표(객체)를 상대 문서에 전송한다.
+			targetWindow.postMessage(JSON.stringify(position) , "*");
+			
+		};
+		
+		window.onmessage = function(me){
+			if(!me) me = window.event;
+			// TODO display에 전송받은 마우스 좌표(문자)를 출력한다.
+			
+			console.log(me.origin);
+			if(me.origin != "http://localhost:8080") return ;
+			var megObj = me.data;
+			document.querySelector('#display').innerHTML = megObj;
+		};
+	};
+</script>
+<body>
+	<div id="title"></div>
+	<br>
+	<div id="display"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

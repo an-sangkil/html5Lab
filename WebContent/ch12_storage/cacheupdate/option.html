@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<script>
+	window.onload = function(){
+		loadStorage();
+		document.querySelector("form").onsubmit = saveStorage;
+	}
+	
+	function saveStorage(){
+		
+		if(document.querySelector("#useCache").checked){
+			var refreshTerm = document.querySelector("#refreshTerm").value;
+			console.log("refreshTerm:"+refreshTerm);
+			window.localStorage.setItem("timeUpdate", refreshTerm);
+			
+		} else {
+			window.localStorage.removeItem("timeUpdate");
+		}
+	}
+	
+	function loadStorage(){
+		var updateTime = window.localStorage.getItem("timeUpdate");
+		
+		console.log("timeUpdate :" + updateTime );
+		if(updateTime != null) {
+			document.querySelector("#useCache").checked = true;
+			document.querySelector("#refreshTerm").value = updateTime;	
+		}
+		
+	}
+</script>
+</head>
+<body>
+	<h1>로컬 스토리지(캐시 옵션)</h1>
+	<form>
+		<input type="checkbox" id="useCache">캐시 자동 업데이트 사용<br>
+		새로고침 주기(초)
+		<input type="number" id="refreshTerm" min="5" max="60" step="1"><br> 
+		<input type="submit" formmethod="get" formaction="index.html" value="설정저장">
+	</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

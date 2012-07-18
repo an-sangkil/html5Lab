@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+</head>
+<body>
+	<h1>WebForm 예제</h1>
+	<form>
+	
+		<h2>새로운 타입</h2>
+		<fieldset>
+			search<input type="search"><br>
+			tel<input type="tel"><br>
+			url<input type="url"><br>
+			email<input type="email"><br>
+			datetime<input type="datetime">
+			date<input type="date">
+			month<input type="month">
+			week<input type="week">
+			time<input type="time"><br>
+			number<input type="number" min="0" max="10" step="3"><br>
+			range(0~5)<input type="range" min="0" max="5" ><br>
+			color<input type="color"><br>
+		</fieldset>
+		
+		<h2>기능 추가</h2>
+		<fieldset>
+			file(JPEG 다중선택)<input type="file" multiple accept="image/jpeg"><br>	
+			<input type="submit" value="등록(POST)" formmethod="post" formaction="webformRegist.jsp">
+			<input type="submit" value="취소(GET)" formmethod="get" formaction="webformRegist.jsp"><br>	
+		</fieldset>
+		
+		<h2>새로운 요소</h2>
+		<fieldset>
+			성인<input name="adult" type="number" min="0" value="0"> +
+			어린이<input name="child" type="number" min="0" value="0"> =
+			<output onforminput="value = adult.valueAsNumber + child.valueAsNumber">합계</output><br>
+			meter<meter value="100" max=100 low="60" high="90">100</meter><br>
+			<meter value="95" max=100 low="60" high="90">95</meter><br>
+			<meter value="88" max=100 low="60" high="90">88</meter><br>
+			<meter value="75" max=100 low="60" high="90">75</meter><br>
+			<meter value="65" max=100 low="60" high="90">65</meter><br>
+			<meter value="50" max=100 low="60" high="90">50</meter><br>
+			keygen<keygen name="key"><br>
+			progress<progress value="30" max="100">30%</progress><br>
+		</fieldset>
+		
+		<h2>자동 완성</h2>		
+		<fieldset>
+			자동 완성 on: <input type="text" name="autoon" autocomplete="on" list="language"><br>
+			자동 완성 off: <input type="text" name="autooff" autocomplete="off" ><br>
+			좋아하는 언어는?<input type="text" name="language" list="language">
+			<datalist id="language">
+				<option value="c" label="C언어">
+				<option value="c++" label="C++언어">
+				<option value="java" label="자바">
+				<option value="vb" label="비쥬얼 베이직">
+				<option value="c#" label="C#언어">
+			</datalist>
+		</fieldset>
+		
+	</form>
+</body>
+</html>

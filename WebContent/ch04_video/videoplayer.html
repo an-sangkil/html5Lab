@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+<title>HTML5</title>
+<script>
+	window.onload = function() {
+		
+		myvideo 	       = document.getElementById('myvideo');
+		playTime 	   	   = document.getElementById('status');
+		
+		var playBtn 	   = document.getElementById('play');
+		var pauseBtn 	   = document.getElementById('pause');
+		var rewindBtn      = document.getElementById('rewind');
+		var fastforwardBtn = document.getElementById('fastforward');
+		
+		
+		//재생
+		playBtn.onclick = function () {
+			myvideo.play();
+		};
+		
+		//정지
+		pauseBtn.onclick = function() {
+			myvideo.pause();
+		};
+		
+		//재생속도 느리게
+		rewindBtn.onclick = function() {
+			myvideo.playbackRate -= 1;
+		};
+		
+		//재생속도 빠르게
+		fastforwardBtn.onclick = function() {
+			myvideo.playbackRate += 2;
+		};
+		
+		if (typeof myvideo.ontimeupdate == "object") {
+			// DOM Level 1 방식의 이벤트 등록
+			myvideo.ontimeupdate = updateTime
+			
+		} else {
+			// DOM Level 2 방식의 이벤트 등록
+			myvideo.addEventListener("timeupdate", updateTime);
+		}
+	};
+	
+	
+	function updateTime() {
+		var current  = Math.round(myvideo.currentTime);
+		var duration = myvideo.duration;
+		
+		playTime.innerHTML = current + "/" + duration;
+	}
+	
+	
+</script>
+</head>
+<body>
+	<h1>Video 제어 예제</h1>
+	<div>
+		<video id="myvideo" controls width="640" height="360">
+			<source src="../media/chrome.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+			<source src="../media/chrome.webm" type='video/webm; codecs="vp8, vorbis"'></source>
+			<source src="../media/chrome.ogv" type='video/ogg; codecs="theora, vorbis"'></source>
+			<p>	비디오 재생을 지원하지 않는 브라우저 입니다. 아래의 링크를 클릭하여 다운로드 받으세요.<br>	</p>
+		</video>
+	</div>
+	<div>
+		<button id="play">play</button>
+		<button id="pause">pause</button>
+		<button id="rewind">&lt;&lt;</button>
+		<button id="fastforward">&gt;&gt;</button>
+		<span id="status"></span>
+	</div>
+</body>
+</html>
+
+
+
+

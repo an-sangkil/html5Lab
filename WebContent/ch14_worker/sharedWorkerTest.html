@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>HTML5</title>
+<link href="../../css/common.css">
+<script src="../js/common.js"></script>
+<script>
+	window.onload = function(){
+		// TODO 공유워커 생성
+		sw = new SharedWorker("sharedWorker.js","sw");
+		
+		// TODO message 이벤트 처리
+		sw.port.onmessage = function(me){
+			log(me.data);
+		};
+		
+		document.getElementById("send").onclick = function(){
+			var msg = document.getElementById("msg").value;
+			// TODO 워커에 메세지 전송
+			sw.port.postMessage(msg);
+		};
+	}
+</script>
+</head>
+<body>
+	<h1>공유 워커 호출</h1>
+	<div>
+		<input type="text" id="msg">
+		<input type="button" value="메세지 전송" id="send"><br/>
+	</div>
+	<div class="log"><p>로그</p></div>	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
